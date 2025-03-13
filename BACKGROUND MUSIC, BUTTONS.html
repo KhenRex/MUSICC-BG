@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Music</title>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="Envici November - Original Instrument.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Button for manual play (hidden unless needed) -->
+    <button id="play-button" onclick="playMusic()">Play Music</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var audio = document.getElementById("bg-music");
+            var playButton = document.getElementById("play-button");
+
+            // Try to autoplay music
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Autoplay started");
+                }).catch(() => {
+                    console.log("Autoplay blocked, showing play button.");
+                    playButton.style.display = "block"; // Show button if autoplay is blocked
+                });
+            }
+        });
+
+        function playMusic() {
+            var audio = document.getElementById("bg-music");
+            audio.play().then(() => {
+                console.log("Music playing.");
+                document.getElementById("play-button").style.display = "none"; // Hide button after play
+            }).catch(err => console.log("Error playing music:", err));
+        }
+    </script>
+
+    <style>
+        button {
+            display: none; /* Hidden unless autoplay is blocked */
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+
+</body>
+</html>
